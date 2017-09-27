@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title>jQuery UI Datepicker functionality</title>
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+      <!-- Javascript -->
+      <script>
+		
+      	/** Deux dates données à masquer */
+      	var startDate = "2017-12-12";
+      	var endDate = "2018-03-05";
+      	
+      	var disabledDates=[]; //tableau pour sauvgarder toutes les dates à masquer entre startDate et endDate
+
+      	// parcourir les dates entre startDate et endDate et les sauvegarder dans un tableau
+      	for (var d = new Date(startDate); d <= new Date(endDate); d.setDate(d.getDate() + 1)) {
+		    disabledDates.push($.datepicker.formatDate('yy-mm-dd', d));
+		}
+
+		
+		function DisableSpecificDates(date) {
+	      	var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date); // récupérer la date courante formatée
+				return [disabledDates.indexOf(dateString) == -1]; // voir si la date en cours existe dans le tableau si oui on le masque etle rendre non selective
+
+		     return [true];// sinon la date soit selective
+		}
+
+		$(function() {
+            $( "#datepicker-1" ).datepicker({
+            	beforeShowDay: DisableSpecificDates,//appel au fonction pour ignorer dates données
+            	minDate: 0 // La date minimale est la date d'aujourd'hui
+            });
+         });
+         
+      </script>
+   </head>
+   
+   <body>
+      <!-- HTML --> 
+      <p>Enter une date: <input type = "text" id = "datepicker-1"></p>
+   </body>
+</html>
