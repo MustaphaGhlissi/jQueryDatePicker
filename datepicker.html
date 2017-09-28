@@ -64,6 +64,14 @@
                $('#datepicker-2').val(nextDate);
             });
 
+
+
+            $( "#datepicker-2" ).datepicker({
+               dateFormat: "yy-mm-dd",
+               beforeShowDay: disableArrayOfDates,//appel au fonction pour ignorer dates données
+               //minDate: 0 // La date minimale est la date d'aujourd'hui
+            });
+
          });
          
       </script>
